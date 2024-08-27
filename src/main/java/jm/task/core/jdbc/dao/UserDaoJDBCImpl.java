@@ -12,7 +12,7 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void createUsersTable() {
-        String sql = "CREATE TABLE IF NOTXISTS Users(id BIGINT PRIMARY KEY AUTO_INCREMENT,name VARCHAR(255) NOT NULL,lastName VARCHAR(255) NOT NULL,age INT NOT NULL)";
+        String sql = "CREATE TABLE IF NOT EXISTS Users(id BIGINT PRIMARY KEY AUTO_INCREMENT,name VARCHAR(255) NOT NULL,lastName VARCHAR(255) NOT NULL,age INT NOT NULL)";
         try (Connection connection = Util.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql);
         ) {
@@ -34,13 +34,13 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void saveUser(String name, String lastName, byte age) {
-        String sql = "INSERT INTO USERS VALUES (?,?,?)";
+        String sql = "INSERT INTO USERS (name, lastName,age) VALUES (?,?,?)";
         try (Connection connection = Util.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql);
         ) {
-            preparedStatement.setString(1,name);
-            preparedStatement.setString(2,lastName);
-            preparedStatement.setByte(3,age);
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, lastName);
+            preparedStatement.setByte(3, age);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -52,7 +52,7 @@ public class UserDaoJDBCImpl implements UserDao {
         try (Connection connection = Util.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql);
         ) {
-            preparedStatement.setLong(1,id);
+            preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -67,11 +67,11 @@ public class UserDaoJDBCImpl implements UserDao {
         ) {
             ResultSet resultset = statement.executeQuery();
             while (resultset.next()) {
-               long id = resultset.getLong("id");
-               String name = resultset.getString("name");
-               String lastName = resultset.getString("lastName");
-               byte age = resultset.getByte("age");
-               list.add(new User(id,name,lastName,age));
+                long id = resultset.getLong("id");
+                String name = resultset.getString("name");
+                String lastName = resultset.getString("lastName");
+                byte age = resultset.getByte("age");
+                list.add(new User(id, name, lastName, age));
             }
         } catch (SQLException e) {
             e.printStackTrace();
