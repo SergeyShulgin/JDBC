@@ -22,10 +22,11 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void dropUsersTable() {
+        String sql = "DROP TABLE Users IF EXISTS";
         try (Connection connection = Util.getConnection();
              Statement statement = connection.createStatement()
         ) {
-            statement.execute("DROP TABLE IF EXISTS Users ");
+            statement.execute("DROP TABLE Users");
         } catch (SQLException e) {
             e.printStackTrace();
         }
