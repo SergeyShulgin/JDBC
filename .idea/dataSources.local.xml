@@ -11,12 +11,14 @@
       <user-name>ShulginSV</user-name>
       <schema-mapping>
         <introspection-scope>
-          <node kind="schema">
-            <name qname="@" />
-            <name qname="mysql" />
-          </node>
+          <node kind="schema" qname="@" />
         </introspection-scope>
       </schema-mapping>
+    </data-source>
+    <data-source name="hibernate.cfg.xml/Hibernate" uuid="54af360b-bf90-4b74-9cf6-826ba7c87f65">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
+      <user-name>ShulginSV</user-name>
+      <schema-mapping />
     </data-source>
   </component>
 </project>
