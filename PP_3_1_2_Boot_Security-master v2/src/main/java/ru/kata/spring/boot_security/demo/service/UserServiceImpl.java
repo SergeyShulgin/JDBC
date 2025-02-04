@@ -39,11 +39,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(User user) {
         userRepository.findById(user.getId()).ifPresent(existingUser -> {
+            BeanUtils.copyProperties(user, existingUser, "password", "id");
+            //Только если пароль изменён- добавляю и кодирую его
             if ((user.getPassword() != null) && !user.getPassword().isEmpty()) {
                 existingUser.setPassword(passwordEncoder.encode(user.getPassword()));
             }
-            existingUser.setUsername(user.getUsername());
-            existingUser.setRoles(user.getRoles());
             userRepository.save(existingUser);
         });
     }
